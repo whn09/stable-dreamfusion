@@ -31,20 +31,21 @@ RUN cd /app
 RUN git clone https://github.com/ashawkey/stable-dreamfusion.git
 
 
-RUN pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu116
+RUN pip3 install torch==1.13.1 torchvision==0.14.1 torchaudio==0.13.1 --extra-index-url https://download.pytorch.org/whl/cu116
 
 WORKDIR /app/stable-dreamfusion
 
 RUN pip3 install -r requirements.txt
 RUN pip3 install git+https://github.com/NVlabs/nvdiffrast/
 
+RUN pip3 list | grep torch
 # Needs nvidia runtime, if you have "No CUDA runtime is found" error: https://stackoverflow.com/questions/59691207/docker-build-with-nvidia-runtime, first answer
 RUN pip3 install git+https://github.com/NVlabs/tiny-cuda-nn/#subdirectory=bindings/torch
 
 RUN pip3 install git+https://github.com/openai/CLIP.git
 RUN bash scripts/install_ext.sh
 
-
+RUN pip3 install protobuf==3.20.1
 
 
 
